@@ -40,7 +40,7 @@ def main():
         st.session_state['displayed_color'] = show_color_graph()
     
     if st.session_state['displayed_color'] is not None:
-        selected_color = st.color_picker("Choisissez la couleur affichée", "#000000")
+        selected_color = st.color_picker("Choisissez la couleur affichée en cliquant sur le bouton ci-dessous", "#000000")
         if st.button("Valider le choix"):
             evaluate_color_perception(st.session_state['displayed_color'], selected_color)
 
