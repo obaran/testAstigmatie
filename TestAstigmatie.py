@@ -20,8 +20,7 @@ def rgb_to_hex(rgb):
     return '#%02x%02x%02x' % tuple(int(x*255) for x in rgb)
 
 # Fonction pour évaluer la perception des couleurs
-def evaluate_color_perception(displayed_color):
-    selected_color = st.color_picker("Choisissez la couleur affichée", "#000000")
+def evaluate_color_perception(displayed_color, selected_color):
     selected_rgb = tuple(int(selected_color.lstrip('#')[i:i+2], 16) / 255 for i in (0, 2, 4))
     score = 100 - sum(abs(d - s) for d, s in zip(displayed_color, selected_rgb)) * 100 / 3
     st.write(f"Votre score de perception des couleurs est : {score:.2f}/100")
@@ -33,10 +32,11 @@ def evaluate_color_perception(displayed_color):
 # Interface principale
 def main():
     st.title("Test de Perception des Couleurs")
-    st.write("Cliquez sur le bouton ci-dessous pour commencer le test.")
     if st.button("Commencer le Test"):
         displayed_color = show_color_graph()
-        evaluate_color_perception(displayed_color)
+        selected_color = st.color_picker("Choisissez la couleur affichée", "#000000")
+        if st.button("Valider le choix"):
+            evaluate_color_perception(displayed_color, selected_color)
 
 if __name__ == "__main__":
     main()
