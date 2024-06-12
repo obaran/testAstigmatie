@@ -32,11 +32,17 @@ def evaluate_color_perception(displayed_color, selected_color):
 # Interface principale
 def main():
     st.title("Test de Perception des Couleurs")
+    st.write("Cliquez sur le bouton ci-dessous pour commencer le test.")
+    if 'displayed_color' not in st.session_state:
+        st.session_state['displayed_color'] = None
+    
     if st.button("Commencer le Test"):
-        displayed_color = show_color_graph()
+        st.session_state['displayed_color'] = show_color_graph()
+    
+    if st.session_state['displayed_color'] is not None:
         selected_color = st.color_picker("Choisissez la couleur affichée", "#000000")
         if st.button("Valider le choix"):
-            evaluate_color_perception(displayed_color, selected_color)
+            evaluate_color_perception(st.session_state['displayed_color'], selected_color)
 
 if __name__ == "__main__":
     main()
